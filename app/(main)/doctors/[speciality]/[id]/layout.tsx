@@ -3,6 +3,13 @@ import PageHeader from '@/components/page-header';
 import { redirect } from 'next/navigation';
 import React from 'react'
 
+interface DoctorProfileLayoutProps {
+    params: {
+        id: string;
+    };
+    children: React.ReactNode;
+}
+
 export async function generateMetadata({ params }: { params: { id: string } }) {
     const { id } = params;
     const { doctor } = await getDoctorById(id);
@@ -13,7 +20,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     }
 }
 
-const DoctorProfileLayout = async ({ params, children }: { params: { id: string }, children: React.ReactNode }) => {
+const DoctorProfileLayout = async ({ params, children }: DoctorProfileLayoutProps) => {
     const { id } = params;
     const { doctor } = await getDoctorById(id);
 
@@ -23,7 +30,7 @@ const DoctorProfileLayout = async ({ params, children }: { params: { id: string 
 
     return (
         <div className='container mx-auto'>
-            <PageHeader title={`Dr. ${doctor.name}`} backlink={`/doctors/${doctor.speciality}`} backLabel={`Back to ${doctor.speciality} Doctors`} />
+            <PageHeader title={`${doctor.name}`} backlink={`/doctors/${doctor.speciality}`} backLabel={`Back to ${doctor.speciality} Doctors`} />
             {children}
         </div>
     )

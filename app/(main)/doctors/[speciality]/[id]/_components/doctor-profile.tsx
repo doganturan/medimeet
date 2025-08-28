@@ -102,7 +102,7 @@ const DoctorProfile = ({ doctor, availableDays }: { doctor: AppUser, availableDa
                 <Card>
                     <CardHeader>
                         <CardTitle className='text-xl font-bold text-white'>
-                            About Dr. {doctor.name}
+                            About {doctor.name}
                         </CardTitle>
                         <CardDescription>
                             Proffessional background and expertise - {doctor.speciality}
