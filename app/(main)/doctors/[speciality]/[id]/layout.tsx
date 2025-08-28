@@ -4,13 +4,21 @@ import { redirect } from 'next/navigation';
 import React from 'react';
 import type { Metadata } from 'next';
 
-// Inline type definition for generateMetadata
+// LayoutProps interface'ini tanımla
+interface LayoutProps {
+    params: Promise<{ speciality: string; id: string }>;
+    children: React.ReactNode;
+}
+
+// generateMetadata için
 export async function generateMetadata({
     params,
 }: {
-    params: { speciality: string; id: string };
+    params: Promise<{ speciality: string; id: string }>;
 }): Promise<Metadata> {
-    const { id } = params;
+    // params'ı resolve et
+    const resolvedParams = await params;
+    const { id } = resolvedParams;
     const { doctor } = await getDoctorById(id);
 
     if (!doctor) {
@@ -26,15 +34,14 @@ export async function generateMetadata({
     };
 }
 
-// Inline type definition for the layout component
+// Layout component için
 const DoctorProfileLayout = async ({
     params,
     children,
-}: {
-    params: { speciality: string; id: string };
-    children: React.ReactNode;
-}) => {
-    const { id } = params;
+}: LayoutProps) => {
+    // params'ı resolve et
+    const resolvedParams = await params;
+    const { id } = resolvedParams;
     const { doctor } = await getDoctorById(id);
 
     if (!doctor) {
