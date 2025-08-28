@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     }
 }
 
-const DoctorProfileLayout = async ({ params, children }: DoctorProfileLayoutProps) => {
+export default async function Layout({ params, children }: DoctorProfileLayoutProps) {
     const { id } = params;
     const { doctor } = await getDoctorById(id);
 
@@ -33,7 +33,5 @@ const DoctorProfileLayout = async ({ params, children }: DoctorProfileLayoutProp
             <PageHeader title={`${doctor.name}`} backlink={`/doctors/${doctor.speciality}`} backLabel={`Back to ${doctor.speciality} Doctors`} />
             {children}
         </div>
-    )
+    );
 }
-
-export default DoctorProfileLayout
