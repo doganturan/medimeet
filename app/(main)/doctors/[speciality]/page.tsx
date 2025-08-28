@@ -5,9 +5,15 @@ import { AppUser } from '@/types/user';
 import { redirect } from 'next/navigation';
 import React from 'react'
 
-const SpecialityPage = async ({ params }: { params: { speciality: string } }) => {
+// PageProps interface'ini tanımla
+interface PageProps {
+    params: Promise<{ speciality: string }>;
+}
 
-    const { speciality } =  params;
+const SpecialityPage = async ({ params }: PageProps) => {
+    // params'ı resolve et
+    const resolvedParams = await params;
+    const { speciality } = resolvedParams;
 
     if (!speciality) {
         redirect('/doctors');
@@ -20,9 +26,12 @@ const SpecialityPage = async ({ params }: { params: { speciality: string } }) =>
         redirect('/doctors');
     }
 
+    // Özel karakterleri düzgün formatla
+    const formattedSpeciality = decodeURIComponent(speciality).split("%20").join(" ");
+
     return (
         <div className='space-y-5'>
-            <PageHeader title={speciality.split("%20").join(" ")} backlink='/doctors' backLabel='All Specialities' />
+            <PageHeader title={formattedSpeciality} backlink='/doctors' backLabel='All Specialities' />
 
             {doctors && doctors.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

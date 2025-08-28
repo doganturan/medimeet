@@ -26,7 +26,10 @@ export const checkUser = async (): Promise<AppUser | null> => {
                         createdAt: "desc"
                     },
                     take: 1
-                }
+                },
+                patientAppointments: true,
+                doctorAppointments: true,
+                availabilities: true,
             }
         })
 
@@ -47,7 +50,25 @@ export const checkUser = async (): Promise<AppUser | null> => {
                         packageId: "free_user",
                         amount: 2,
                     }
-                }
+                },
+                // No need to create empty relations for patientAppointments, doctorAppointments, availabilities
+            },
+            include: {
+                transactions: {
+                    where: {
+                        type: "CREDIT_PURCHASE",
+                        createdAt: {
+                            gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+                        }
+                    },
+                    orderBy: {
+                        createdAt: "desc"
+                    },
+                    take: 1
+                },
+                patientAppointments: true,
+                doctorAppointments: true,
+                availabilities: true,
             }
         });
 
