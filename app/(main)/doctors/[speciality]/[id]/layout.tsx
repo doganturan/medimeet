@@ -3,13 +3,6 @@ import PageHeader from '@/components/page-header';
 import { redirect } from 'next/navigation';
 import React from 'react'
 
-interface DoctorProfileLayoutProps {
-    params: {
-        id: string;
-    };
-    children: React.ReactNode;
-}
-
 export async function generateMetadata({ params }: { params: { id: string } }) {
     const { id } = params;
     const { doctor } = await getDoctorById(id);
@@ -20,7 +13,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     }
 }
 
-export default async function Layout({ params, children }: DoctorProfileLayoutProps) {
+export default async function Layout({ params, children }: { params: { id: string }; children: React.ReactNode }) {
     const { id } = params;
     const { doctor } = await getDoctorById(id);
 
