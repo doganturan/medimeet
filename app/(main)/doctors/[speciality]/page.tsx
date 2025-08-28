@@ -7,7 +7,7 @@ import React from 'react'
 
 const SpecialityPage = async ({ params }: { params: { speciality: string } }) => {
 
-    const { speciality } = await params;
+    const { speciality } =  params;
 
     if (!speciality) {
         redirect('/doctors');

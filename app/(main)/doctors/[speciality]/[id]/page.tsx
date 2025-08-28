@@ -4,7 +4,7 @@ import React from 'react'
 import DoctorProfile from './_components/doctor-profile';
 
 const DoctorProfilePage = async ({ params }: { params: { id: string } }) => {
-    const { id } = await params;
+    const { id } =  params;
 
     try {
         const [doctorData, slotsData] = await Promise.all([

@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import React from 'react'
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
-    const { id } = await params;
+    const { id } = params;
     const { doctor } = await getDoctorById(id);
 
     return {
@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 const DoctorProfileLayout = async ({ params, children }: { params: { id: string }, children: React.ReactNode }) => {
-    const { id } = await params;
+    const { id } = params;
     const { doctor } = await getDoctorById(id);
 
     if (!doctor) {
